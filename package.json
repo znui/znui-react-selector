@@ -1,0 +1,32 @@
+{
+  "name": "znui-react-selector",
+  "version": "1.0.2",
+  "description": "Web selector component.",
+  "main": "development.js",
+  "scripts": {
+    "webpack-example": "rimraf example/dist && webpack --config webpack.config.example.js",
+    "webpack-example-watch": "rimraf example/dist && webpack --config webpack.config.example.js --watch",
+    "clean-dist": "rimraf dist",
+    "clean-build": "rimraf build",
+    "webpack": "rimraf dist && webpack",
+    "webpack-watch": "rimraf dist && webpack --watch",
+    "build": "npm run clean-build && babel src -d build",
+    "dist": "npm run clean-dist && webpack --uglify",
+    "release": "npm run build && npm run dist"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/znui/znui-react-selector.git"
+  },
+  "keywords": [
+    "web component",
+    "selector"
+  ],
+  "author": "yangyxu",
+  "email": "xuyy0618@qq.com",
+  "license": "MIT",
+  "dependencies": {
+    "znui-react": "^1.3.9",
+    "znui-react-icon": "^1.0.5"
+  }
+}
