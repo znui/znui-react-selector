@@ -47,7 +47,7 @@ var RadioItem = React.createClass({
       name: this.props.name,
       type: "radio",
       checked: this.props.checked
-    }), React.createElement(icon.SVGIcon, {
+    }), React.createElement(icon.RegularSVGIcon, {
       className: "icon",
       icon: this.props.checked ? 'faDotCircle' : 'faCircle'
     }), this.__renderContent());

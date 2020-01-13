@@ -32,7 +32,7 @@ var RadioItem = React.createClass({
 		return (
 			<div className={znui.react.classname('zr-radio-item', this.props.className)} onClick={this.__onClick} data-disabled={this.props.disabled} data-checked={this.props.checked}>
 				<input name={this.props.name} type='radio' checked={this.props.checked} />
-				<icon.SVGIcon className="icon" icon={this.props.checked?'faDotCircle':'faCircle'} />
+				<icon.RegularSVGIcon className="icon" icon={this.props.checked?'faDotCircle':'faCircle'} />
 				{this.__renderContent()}
 			</div>
 		);

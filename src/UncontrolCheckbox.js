@@ -32,7 +32,7 @@ module.exports = React.createClass({
 		return (
 			<div className={znui.react.classname('zr-uncontrol-checkbox', this.props.className)} onClick={this.__onClick} data-disabled={this.props.disabled} data-checked={this.props.checked}>
 				<input name={this.props.name} type='checkbox' checked={this.props.checked} />
-				<icon.SVGIcon className="icon" icon={this.props.checked?'faCheckSquare':'faSquare'} />
+				<icon.RegularSVGIcon className="icon" icon={this.props.checked?'faCheckSquare':'faSquare'} />
 				{this.__renderContent()}
 			</div>
 		);

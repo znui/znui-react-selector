@@ -68,7 +68,7 @@ module.exports = React.createClass({
       name: this.props.name,
       type: "checkbox",
       checked: this.state.checked
-    }), React.createElement(icon.SVGIcon, {
+    }), React.createElement(icon.RegularSVGIcon, {
       className: "icon",
       icon: this.state.checked ? 'faCheckSquare' : 'faSquare'
     }), this.__renderContent());

@@ -1,6 +1,6 @@
 {
   "name": "znui-react-selector",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Web selector component.",
   "main": "development.js",
   "scripts": {
@@ -27,6 +27,6 @@
   "license": "MIT",
   "dependencies": {
     "znui-react": "^1.3.9",
-    "znui-react-icon": "^1.0.5"
+    "znui-react-icon": "^1.0.7"
   }
 }
