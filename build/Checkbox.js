@@ -9,7 +9,7 @@ module.exports = React.createClass({
   getDefaultProps: function getDefaultProps() {
     return {
       className: '',
-      text: 'Checkbox',
+      text: '',
       layout: 'flex-row',
       checked: false,
       disabled: false
@@ -19,13 +19,6 @@ module.exports = React.createClass({
     return {
       checked: this.props.checked
     };
-  },
-  componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
-    if (nextProps.checked != this.props.checked) {
-      this.setState({
-        checked: nextProps.checked
-      });
-    }
   },
   __onClick: function __onClick(event) {
     if (this.props.disabled) {
@@ -47,6 +40,11 @@ module.exports = React.createClass({
       checked: value
     });
   },
+  __onChange: function __onChange(event) {
+    this.setState({
+      checked: !this.state.checked
+    });
+  },
   __renderContent: function __renderContent() {
     var _return = this.props.contentRender && this.props.contentRender(this);
 
@@ -54,20 +52,26 @@ module.exports = React.createClass({
       _return = this.props.text || '';
     }
 
-    return React.createElement("div", {
-      className: "content"
-    }, _return);
+    if (_return) {
+      return React.createElement("div", {
+        className: "content"
+      }, _return);
+    }
+
+    return null;
   },
   render: function render() {
     return React.createElement("div", {
       className: znui.react.classname('zr-checkbox', this.props.className),
-      onClick: this.__onClick,
+      style: this.props.style,
       "data-disabled": this.props.disabled,
-      "data-checked": this.state.checked
+      "data-checked": this.state.checked,
+      onClick: this.__onClick
     }, React.createElement("input", {
       name: this.props.name,
       type: "checkbox",
-      checked: this.state.checked
+      checked: this.state.checked,
+      onChange: this.__onChange
     }), React.createElement(icon.RegularSVGIcon, {
       className: "icon",
       icon: this.state.checked ? 'faCheckSquare' : 'faSquare'

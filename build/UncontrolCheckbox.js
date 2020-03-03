@@ -9,10 +9,11 @@ module.exports = React.createClass({
   getDefaultProps: function getDefaultProps() {
     return {
       className: '',
-      text: 'Checkbox',
+      text: '',
       layout: 'flex-row',
       checked: false,
-      disabled: false
+      disabled: false,
+      onChange: function onChange() {}
     };
   },
   __onClick: function __onClick(event) {
@@ -31,20 +32,26 @@ module.exports = React.createClass({
       _return = this.props.text || '';
     }
 
-    return React.createElement("div", {
-      className: "content"
-    }, _return);
+    if (_return) {
+      return React.createElement("div", {
+        className: "content"
+      }, _return);
+    }
+
+    return null;
   },
   render: function render() {
     return React.createElement("div", {
       className: znui.react.classname('zr-uncontrol-checkbox', this.props.className),
-      onClick: this.__onClick,
+      style: this.props.style,
       "data-disabled": this.props.disabled,
-      "data-checked": this.props.checked
+      "data-checked": this.props.checked,
+      onClick: this.__onClick
     }, React.createElement("input", {
       name: this.props.name,
       type: "checkbox",
-      checked: this.props.checked
+      checked: this.props.checked,
+      onChange: this.props.onChange
     }), React.createElement(icon.RegularSVGIcon, {
       className: "icon",
       icon: this.props.checked ? 'faCheckSquare' : 'faSquare'

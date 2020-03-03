@@ -11,6 +11,7 @@
     "webpack": "rimraf dist && webpack",
     "webpack-watch": "rimraf dist && webpack --watch",
     "build": "npm run clean-build && babel src -d build",
+    "build-watch": "npm run clean-build && babel src -d build --watch",
     "dist": "npm run clean-dist && webpack --uglify",
     "release": "npm run build && npm run dist"
   },

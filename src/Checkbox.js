@@ -6,7 +6,7 @@ module.exports = React.createClass({
 	getDefaultProps: function (){
 		return {
 			className: '',
-			text: 'Checkbox',
+			text: '',
 			layout: 'flex-row',
 			checked: false,
 			disabled: false
@@ -15,11 +15,6 @@ module.exports = React.createClass({
 	getInitialState: function(){
 		return {
 			checked: this.props.checked
-		}
-	},
-	componentWillReceiveProps: function (nextProps){
-		if(nextProps.checked != this.props.checked){
-			this.setState({ checked: nextProps.checked });
 		}
 	},
 	__onClick: function (event){
@@ -40,18 +35,28 @@ module.exports = React.createClass({
 	setValue: function (value){
 		this.setState({ checked: value });
 	},
+	__onChange: function (event){
+		this.setState({ checked: !this.state.checked });
+	},
 	__renderContent: function (){
 		var _return = this.props.contentRender && this.props.contentRender(this);
 		if(_return !== null){
 			_return = this.props.text||'';
 		}
 
-		return <div className="content">{_return}</div>;
+		if(_return) {
+			return <div className="content">{_return}</div>;
+		}
+		
+		return null;
 	},
 	render: function(){
 		return (
-			<div className={znui.react.classname('zr-checkbox', this.props.className)} onClick={this.__onClick} data-disabled={this.props.disabled} data-checked={this.state.checked}>
-				<input name={this.props.name} type='checkbox' checked={this.state.checked} />
+			<div className={znui.react.classname('zr-checkbox', this.props.className)} style={this.props.style}
+				data-disabled={this.props.disabled} 
+				data-checked={this.state.checked}
+				onClick={this.__onClick} >
+				<input name={this.props.name} type='checkbox' checked={this.state.checked} onChange={this.__onChange} />
 				<icon.RegularSVGIcon className="icon" icon={this.state.checked?'faCheckSquare':'faSquare'} />
 				{this.__renderContent()}
 			</div>

@@ -6,7 +6,7 @@ var RadioItem = React.createClass({
 	getDefaultProps: function (){
 		return {
 			className: '',
-			text: 'RadioItem',
+			text: '',
 			checked: false,
 			disabled: false
 		}
@@ -26,7 +26,11 @@ var RadioItem = React.createClass({
 			_return = this.props.text||'';
 		}
 
-		return <div className="content">{_return}</div>;
+		if(_return) {
+			return <div className="content">{_return}</div>;
+		}
+		
+		return null;
 	},
 	render: function(){
 		return (

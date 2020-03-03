@@ -72,7 +72,6 @@ module.exports = React.createClass({
     event.data = _data;
     event.value = _value;
     event.text = _text;
-    console.log(_value, _text);
     this.state.value = this.parseValue(_value);
     this.forceUpdate();
     this.props.onChange && this.props.onChange(event, this);

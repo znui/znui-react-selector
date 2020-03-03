@@ -62,7 +62,6 @@ module.exports = React.createClass({
 		}
 		event.value = this.state.value;
 		this.forceUpdate();
-		console.log(event.value);
 		this.props.onChange && this.props.onChange(event, this);
 	},
 	__itemRender: function (item, index){
