@@ -7,7 +7,8 @@ module.exports = require(_path + 'znui-react/webpack').component.example('develo
     return {
         resolve: {
             alias: {
-                "znui-react": node_path.resolve(__dirname, '../../znui-react')
+                "znui-react": node_path.resolve(__dirname, '../../znui-react'),
+                "znui-react-icon": node_path.resolve(__dirname, '../../znui-react-icon')
             }
         }
     };
