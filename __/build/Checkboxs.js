@@ -93,7 +93,7 @@ module.exports = React.createClass({
       _return = item[this.props.textKey];
     }
 
-    return React.createElement(UncontrolCheckbox, _extends({
+    return /*#__PURE__*/React.createElement(UncontrolCheckbox, _extends({
       key: index,
       disabled: this.props.disabled
     }, item, {
@@ -104,10 +104,10 @@ module.exports = React.createClass({
     }));
   },
   render: function render() {
-    return React.createElement("div", {
+    return /*#__PURE__*/React.createElement("div", {
       style: this.props.style,
       className: znui.react.classname("zr-checkboxs", this.props.className)
-    }, this.props.children, React.createElement(znui.react.DataView, {
+    }, this.props.children, /*#__PURE__*/React.createElement(znui.react.DataView, {
       data: this.props.data,
       itemRender: this.__itemRender
     }));

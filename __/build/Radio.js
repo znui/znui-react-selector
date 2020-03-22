@@ -34,7 +34,7 @@ var RadioItem = React.createClass({
     }
 
     if (_return) {
-      return React.createElement("div", {
+      return /*#__PURE__*/React.createElement("div", {
         className: "content"
       }, _return);
     }
@@ -42,16 +42,17 @@ var RadioItem = React.createClass({
     return null;
   },
   render: function render() {
-    return React.createElement("div", {
+    return /*#__PURE__*/React.createElement("div", {
       className: znui.react.classname('zr-radio-item', this.props.className),
       onClick: this.__onClick,
       "data-disabled": this.props.disabled,
       "data-checked": this.props.checked
-    }, React.createElement("input", {
+    }, /*#__PURE__*/React.createElement("input", {
       name: this.props.name,
       type: "radio",
-      checked: this.props.checked
-    }), React.createElement(icon.RegularSVGIcon, {
+      defaultChecked: this.props.checked,
+      onChange: this.props.onChange
+    }), /*#__PURE__*/React.createElement(icon.RegularSVGIcon, {
       className: "icon",
       icon: this.props.checked ? 'faDotCircle' : 'faCircle'
     }), this.__renderContent());
@@ -69,7 +70,7 @@ var Radio = React.createClass({
   },
   getInitialState: function getInitialState() {
     return {
-      value: null
+      value: this.__initValue()
     };
   },
   __initValue: function __initValue() {
@@ -128,12 +129,14 @@ var Radio = React.createClass({
       _return = item[this.props.textKey];
     }
 
-    return React.createElement(RadioItem, _extends({
+    return /*#__PURE__*/React.createElement(RadioItem, _extends({
+      key: index,
       disabled: this.props.disabled
     }, item, {
       onClick: function onClick(event) {
         return _this.__onRadioItemClick(event, item);
       },
+      onChange: this.props.onChange,
       checked: this.__isChecked(item)
     }));
   },
@@ -150,10 +153,10 @@ var Radio = React.createClass({
     callback && callback(value, this);
   },
   render: function render() {
-    return React.createElement("div", {
+    return /*#__PURE__*/React.createElement("div", {
       style: this.props.style,
       className: znui.react.classname('zr-radio', this.props.className)
-    }, React.createElement(znui.react.DataView, {
+    }, /*#__PURE__*/React.createElement(znui.react.DataView, {
       data: this.props.data,
       itemRender: this.__itemRender
     }));

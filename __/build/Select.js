@@ -2,7 +2,7 @@
 
 var React = znui.React || require('react');
 
-var ReactDOM = znui.React || require('react-dom');
+var ReactDOM = znui.ReactDOM || require('react-dom');
 
 module.exports = React.createClass({
   displayName: 'ZRSelect',
@@ -16,6 +16,9 @@ module.exports = React.createClass({
       disabled: false,
       placeholder: "select ..."
     };
+  },
+  componentDidMount: function componentDidMount() {
+    ReactDOM.findDOMNode(this).value = this.state.value;
   },
   getInitialState: function getInitialState() {
     return {
@@ -54,7 +57,7 @@ module.exports = React.createClass({
       _value = _text = item;
     }
 
-    return React.createElement("option", {
+    return /*#__PURE__*/React.createElement("option", {
       key: index,
       selected: _value == this.state.value ? 'selected' : '',
       value: _value,
@@ -87,7 +90,7 @@ module.exports = React.createClass({
     }, this);
   },
   render: function render() {
-    return React.createElement("select", {
+    return /*#__PURE__*/React.createElement("select", {
       className: znui.react.classname("zr-select", this.props.className),
       style: this.props.style,
       name: this.props.name,
@@ -96,10 +99,10 @@ module.exports = React.createClass({
       value: this.state.value,
       onChange: this.__onSelectChange,
       onClick: this.__onSelectClick
-    }, React.createElement("option", {
+    }, /*#__PURE__*/React.createElement("option", {
       value: "",
       disabled: true
-    }, this.props.placeholder), React.createElement(znui.react.DataView, {
+    }, this.props.placeholder), /*#__PURE__*/React.createElement(znui.react.DataView, {
       data: this.props.data,
       itemRender: this.__itemRender
     }));

@@ -35,7 +35,7 @@ var RadioItem = React.createClass({
 	render: function(){
 		return (
 			<div className={znui.react.classname('zr-radio-item', this.props.className)} onClick={this.__onClick} data-disabled={this.props.disabled} data-checked={this.props.checked}>
-				<input name={this.props.name} type='radio' checked={this.props.checked} />
+				<input name={this.props.name} type='radio' defaultChecked={this.props.checked} onChange={this.props.onChange} />
 				<icon.RegularSVGIcon className="icon" icon={this.props.checked?'faDotCircle':'faCircle'} />
 				{this.__renderContent()}
 			</div>
@@ -55,7 +55,7 @@ var Radio = React.createClass({
 	},
 	getInitialState: function(){
 		return {
-			value: null
+			value: this.__initValue()
 		};
 	},
 	__initValue: function (){
@@ -106,9 +106,10 @@ var Radio = React.createClass({
 		if(!_return) {
 			_return = item[this.props.textKey];
 		}
-
-		return <RadioItem disabled={this.props.disabled} {...item}
+		
+		return <RadioItem key={index} disabled={this.props.disabled} {...item}
 					onClick={(event)=>this.__onRadioItemClick(event, item)}
+					onChange={this.props.onChange}
 					checked={this.__isChecked(item)} />;
 	},
 	

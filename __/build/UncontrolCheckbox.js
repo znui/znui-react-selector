@@ -33,7 +33,7 @@ module.exports = React.createClass({
     }
 
     if (_return) {
-      return React.createElement("div", {
+      return /*#__PURE__*/React.createElement("div", {
         className: "content"
       }, _return);
     }
@@ -41,18 +41,18 @@ module.exports = React.createClass({
     return null;
   },
   render: function render() {
-    return React.createElement("div", {
+    return /*#__PURE__*/React.createElement("div", {
       className: znui.react.classname('zr-uncontrol-checkbox', this.props.className),
       style: this.props.style,
       "data-disabled": this.props.disabled,
       "data-checked": this.props.checked,
       onClick: this.__onClick
-    }, React.createElement("input", {
+    }, /*#__PURE__*/React.createElement("input", {
       name: this.props.name,
       type: "checkbox",
       checked: this.props.checked,
       onChange: this.props.onChange
-    }), React.createElement(icon.RegularSVGIcon, {
+    }), /*#__PURE__*/React.createElement(icon.RegularSVGIcon, {
       className: "icon",
       icon: this.props.checked ? 'faCheckSquare' : 'faSquare'
     }), this.__renderContent());

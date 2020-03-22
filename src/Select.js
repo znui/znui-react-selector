@@ -1,5 +1,5 @@
 var React = znui.React || require('react');
-var ReactDOM = znui.React || require('react-dom');
+var ReactDOM = znui.ReactDOM || require('react-dom');
 
 module.exports = React.createClass({
 	displayName:'ZRSelect',
@@ -13,6 +13,9 @@ module.exports = React.createClass({
 			disabled: false,
 			placeholder: "select ..."
 		};
+	},
+	componentDidMount: function (){
+		ReactDOM.findDOMNode(this).value = this.state.value;
 	},
 	getInitialState: function(){
 		return {
