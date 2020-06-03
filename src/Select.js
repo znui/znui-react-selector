@@ -15,7 +15,8 @@ module.exports = React.createClass({
 		};
 	},
 	componentDidMount: function (){
-		ReactDOM.findDOMNode(this).value = this.state.value;
+		console.log(this.state.value, ReactDOM.findDOMNode(this));
+		//ReactDOM.findDOMNode(this).value = this.state.value;
 	},
 	getInitialState: function(){
 		return {
@@ -53,7 +54,7 @@ module.exports = React.createClass({
 			_value = _text = item;
 		}
 
-		return <option key={index} selected={_value==this.state.value?'selected':''} value={_value} data-value={_value} data-text={_text}>{_text}</option>;
+		return <option key={_value} value={_value} data-value={_value} data-text={_text}>{_text}</option>;
 	},
 	__onSelectChange: function (event){
 		var _target = event.target,
@@ -61,7 +62,7 @@ module.exports = React.createClass({
 			_value = this.__parseExp(_data, this.props.valueKey),
 			_text = this.__parseExp(_data, this.props.textKey);
 
-		event.index = (+_target.selectedIndex - 1);
+		event.selectedIndex = (+_target.selectedIndex - 1);
 		event.data = _data;
 		event.value = _value;
 		event.text = _text;

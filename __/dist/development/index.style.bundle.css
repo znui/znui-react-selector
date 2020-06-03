@@ -63,6 +63,7 @@
 .zr-checkboxs {
   display: flex;
   flex-wrap: wrap;
+  padding: 3px;
 }
 .zr-checkboxs .zr-uncontrol-checkbox {
   margin-right: 5px;
@@ -72,6 +73,7 @@
   flex-direction: row;
   flex-wrap: wrap;
   align-items: center;
+  padding: 0px 3px;
 }
 .zr-radio[data-layout="flex-row"] {
   flex-direction: row;

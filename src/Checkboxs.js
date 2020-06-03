@@ -17,7 +17,7 @@ module.exports = React.createClass({
 	},
 	__initValue: function (){
 		var _value = null;
-		if(this.props.value !== null){
+		if(this.props.value != null){
 			_value = this.props.value;
 		}else{
 			_value = [];
@@ -77,7 +77,7 @@ module.exports = React.createClass({
 		if(!_return) {
 			_return = item[this.props.textKey];
 		}
-
+		
 		return <UncontrolCheckbox key={index}
 					disabled={this.props.disabled}
 					{...item}

@@ -18,7 +18,6 @@ var RadioItem = React.createClass({
 		event.data = this.props;
 		event.sender = this;
 		this.props.onClick && this.props.onClick(event, this);
-		this.props.onChange && this.props.onChange(event, this);
 	},
 	__renderContent: function (){
 		var _return = this.props.contentRender && this.props.contentRender(this);
@@ -109,7 +108,6 @@ var Radio = React.createClass({
 		
 		return <RadioItem key={index} disabled={this.props.disabled} {...item}
 					onClick={(event)=>this.__onRadioItemClick(event, item)}
-					onChange={this.props.onChange}
 					checked={this.__isChecked(item)} />;
 	},
 	

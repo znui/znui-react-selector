@@ -23,7 +23,7 @@ module.exports = React.createClass({
   __initValue: function __initValue() {
     var _value = null;
 
-    if (this.props.value !== null) {
+    if (this.props.value != null) {
       _value = this.props.value;
     } else {
       _value = [];
