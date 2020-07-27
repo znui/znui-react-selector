@@ -29,7 +29,7 @@ var RadioItem = React.createClass({
     var _return = this.props.contentRender && this.props.contentRender(this);
 
     if (_return !== null) {
-      _return = this.props.text || '';
+      _return = this.props.text || this.props.label || '';
     }
 
     if (_return) {
