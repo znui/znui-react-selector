@@ -10,6 +10,7 @@ module.exports = React.createClass({
   displayName: 'ZRCheckboxs',
   getDefaultProps: function getDefaultProps() {
     return {
+      splitChar: ',',
       textKey: 'text',
       valueKey: 'value',
       dataType: 'String'
@@ -47,9 +48,17 @@ module.exports = React.createClass({
       } else {
         return false;
       }
-    }
+    } else {
+      var _avalue = this.state.value.split(this.props.splitChar).filter(function (value) {
+        return !!value;
+      });
 
-    return false;
+      if (_avalue.indexOf(_value) != -1) {
+        return true;
+      } else {
+        return false;
+      }
+    }
   },
   __onItemClick: function __onItemClick(event, checkbox) {
     var _return = this.props.onItemClick && this.props.onItemClick(event, this);
@@ -68,6 +77,18 @@ module.exports = React.createClass({
       } else {
         this.state.value.push(_value);
       }
+    } else {
+      var _avalue = this.state.value.split(this.props.splitChar).filter(function (value) {
+        return !!value;
+      });
+
+      if (_avalue.indexOf(_value) != -1) {
+        _avalue.splice(_avalue.indexOf(_value), 1);
+      } else {
+        _avalue.push(_value);
+      }
+
+      this.state.value = _avalue.join(this.props.splitChar);
     }
 
     event.value = this.state.value;

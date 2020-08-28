@@ -13,18 +13,20 @@ module.exports = React.createClass({
 		}
 	},
 	getInitialState: function(){
+		var _value = this.props.checked;
+		if(this.props.value != null) {
+			_value = this.props.value;
+		}
 		return {
-			checked: this.props.checked
+			checked: _value
 		}
 	},
 	__onClick: function (event){
 		if(this.props.disabled){
 			return false;
 		}
-		this.state.checked = event.checked = !this.state.checked;
-		this.setState({
-			checked: this.state.checked
-		});
+		this.state.checked = event.value = event.checked = !this.state.checked;
+		this.forceUpdate();
 
 		this.props.onClick && this.props.onClick(event, this);
 		this.props.onChange && this.props.onChange(event, this);

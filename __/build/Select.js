@@ -18,7 +18,7 @@ module.exports = React.createClass({
     };
   },
   componentDidMount: function componentDidMount() {
-    console.log(this.state.value, ReactDOM.findDOMNode(this)); //ReactDOM.findDOMNode(this).value = this.state.value;
+    ReactDOM.findDOMNode(this).value = this.state.value;
   },
   getInitialState: function getInitialState() {
     return {
@@ -58,6 +58,7 @@ module.exports = React.createClass({
     }
 
     return /*#__PURE__*/React.createElement("option", {
+      selected: this.state.value == _value,
       key: _value,
       value: _value,
       "data-value": _value,
