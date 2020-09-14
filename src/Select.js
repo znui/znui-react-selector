@@ -5,7 +5,7 @@ module.exports = React.createClass({
 	displayName:'ZRSelect',
 	getDefaultProps: function () {
 		return {
-			dataType: 'Number',
+			dataType: 'String',
 			className: '',
 			value: '',
 			textKey: 'text',
