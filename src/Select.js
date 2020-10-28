@@ -53,7 +53,7 @@ module.exports = React.createClass({
 			_value = _text = item;
 		}
 
-		return <option selected={this.state.value == _value} key={_value} value={_value} data-value={_value} data-text={_text}>{_text}</option>;
+		return <option disabled={item.disabled} selected={this.state.value == _value} key={_value} value={_value} data-value={_value} data-text={_text}>{_text}</option>;
 	},
 	__onSelectChange: function (event){
 		var _target = event.target,

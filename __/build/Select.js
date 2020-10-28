@@ -58,6 +58,7 @@ module.exports = React.createClass({
     }
 
     return /*#__PURE__*/React.createElement("option", {
+      disabled: item.disabled,
       selected: this.state.value == _value,
       key: _value,
       value: _value,
