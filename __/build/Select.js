@@ -14,11 +14,11 @@ module.exports = React.createClass({
       textKey: 'text',
       valueKey: 'value',
       disabled: false,
-      placeholder: "select ..."
+      multiple: false,
+      placeholder: "请选择"
     };
   },
-  componentDidMount: function componentDidMount() {
-    ReactDOM.findDOMNode(this).value = this.state.value;
+  componentDidMount: function componentDidMount() {//ReactDOM.findDOMNode(this).value = this.state.value;
   },
   getInitialState: function getInitialState() {
     return {
@@ -26,6 +26,17 @@ module.exports = React.createClass({
     };
   },
   parseValue: function parseValue(value) {
+    if (this.props.multiple) {
+      switch (zn.type(value)) {
+        case 'array':
+          return value;
+
+        case 'string':
+        case 'number':
+          return [value];
+      }
+    }
+
     if (window[this.props.dataType]) {
       return window[this.props.dataType](value).valueOf();
     }
@@ -62,8 +73,8 @@ module.exports = React.createClass({
       selected: this.state.value == _value,
       key: _value,
       value: _value,
-      "data-value": _value,
-      "data-text": _text
+      "data-text": _text,
+      "data-value": _value
     }, _text);
   },
   __onSelectChange: function __onSelectChange(event) {
@@ -95,9 +106,11 @@ module.exports = React.createClass({
       className: znui.react.classname("zr-select", this.props.className),
       style: this.props.style,
       name: this.props.name,
-      required: this.props.required,
-      disabled: this.props.disabled || this.props.readonly,
       value: this.state.value,
+      multiple: this.props.multiple,
+      required: this.props.required,
+      disabled: this.props.disabled,
+      readOnly: this.props.readonly,
       onChange: this.__onSelectChange,
       onClick: this.__onSelectClick
     }, /*#__PURE__*/React.createElement("option", {

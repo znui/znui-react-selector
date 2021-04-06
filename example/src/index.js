@@ -11,5 +11,6 @@ znui.react.createApplication({
         <inputs.Radio value={1} data={[{value:1, text: '1'}, {value:2, text: '2'}]} dataType="Number" />
         <inputs.Select value={2} data={[{value:1, text: 'A'}, {value:2, text: 'B'}]} />
         <inputs.Checkboxs value={[2]} data={[{value:1, text: 'A'}, {value:2, text: 'B'}]} />
+        <inputs.PopupSelect  />
     </div>
 });

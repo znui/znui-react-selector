@@ -13,15 +13,18 @@
     }
 
     &>.zr-radio-item{
-        margin: 2px 0px;
+        margin-right: 5px;
+        &:hover{
+            opacity: 0.8;
+        }
     }
 
     &>.zr-radio-item:first-child{
-        padding-left: 0px;
+        /*padding-left: 0px;*/
     }
 
     &>.zr-radio-item:last-child{
-        padding-right: 0px;
+        /*padding-right: 0px;*/
     }
 }
 
@@ -31,9 +34,9 @@
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    margin-right: 3px;
-    padding: 2px 4px;
-    border-radius: 5px;
+    margin-right: 5px;
+    padding: 4px 0px;
+    border-radius: 2px;
     &>input{
         display: none;
     }
@@ -58,7 +61,7 @@
 
     &[data-disabled="false"]{
         &:active{
-            box-shadow:0 0 5px #606161;
+            background-color: #f1f1f1;
         }
     }
 }

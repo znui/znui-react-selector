@@ -11,18 +11,28 @@ module.exports = React.createClass({
 			textKey: 'text',
 			valueKey: 'value',
 			disabled: false,
-			placeholder: "select ..."
+			multiple: false,
+			placeholder: "请选择"
 		};
 	},
 	componentDidMount: function (){
-		ReactDOM.findDOMNode(this).value = this.state.value;
+		//ReactDOM.findDOMNode(this).value = this.state.value;
 	},
-	getInitialState: function(){
+	getInitialState: function (){
 		return {
 			value: this.parseValue(this.props.value)
 		}
 	},
 	parseValue: function (value){
+		if(this.props.multiple){
+			switch(zn.type(value)){
+				case 'array':
+					return value;
+				case 'string':
+				case 'number':
+					return [value];
+			}
+		}
 		if(window[this.props.dataType]){
 			return window[this.props.dataType](value).valueOf();
 		}
@@ -53,7 +63,7 @@ module.exports = React.createClass({
 			_value = _text = item;
 		}
 
-		return <option disabled={item.disabled} selected={this.state.value == _value} key={_value} value={_value} data-value={_value} data-text={_text}>{_text}</option>;
+		return <option disabled={item.disabled} selected={this.state.value==_value} key={_value} value={_value} data-text={_text} data-value={_value}>{_text}</option>;
 	},
 	__onSelectChange: function (event){
 		var _target = event.target,
@@ -84,9 +94,11 @@ module.exports = React.createClass({
 				className={znui.react.classname("zr-select", this.props.className)}
 				style={this.props.style}
 				name={this.props.name}
-				required={this.props.required}
-				disabled={this.props.disabled||this.props.readonly}
 				value={this.state.value}
+				multiple={this.props.multiple}
+				required={this.props.required}
+				disabled={this.props.disabled}
+				readOnly={this.props.readonly}
 				onChange={this.__onSelectChange}
 				onClick={this.__onSelectClick}>
 				<option value='' disabled>{this.props.placeholder}</option>
