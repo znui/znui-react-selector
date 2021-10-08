@@ -1,8 +1,7 @@
 var React = znui.React || require('react');
-var UncontrolCheckbox = require('./UncontrolCheckbox');
 
 module.exports = React.createClass({
-	displayName:'ZRCheckboxs',
+	displayName:'ZRSelectList',
 	getDefaultProps: function (){
 		return {
 			splitChar: ',',
@@ -78,6 +77,9 @@ module.exports = React.createClass({
 		this.forceUpdate();
 		this.props.onChange && this.props.onChange(event, this);
 	},
+	__onItemClick: function (){
+
+	},
 	__itemRender: function (item, index){
 		if(!zn.is(item, 'object')){
 			var _temp = { index: index };
@@ -87,24 +89,27 @@ module.exports = React.createClass({
 			item.index = index;
 		}
 
+		var _text = item[this.props.textKey];
 		var _return = this.props.itemRender && this.props.itemRender(item, index);
 		if(!_return) {
-			_return = item[this.props.textKey];
+			_return = (
+				<>
+					{item.icon && <i className={"fa " + item.icon} />}
+					<span className="label">{_text}</span>
+				</>
+			);
 		}
-		
-		return <UncontrolCheckbox key={index}
-					disabled={this.props.disabled}
-					contentRender={this.props.contentRender}
-					{...item}
-					checked={this.__isChecked(item, index)} 
-					onClick={(event)=>this.__onItemClick(event, item)}/>;
+
+		return (
+			<li key={index} className="list-item" onClick={(event)=>this.__onItemClick(event, item, index)}>{_return}</li>
+		);
 	},
 	render: function(){
 		return (
-			<div style={this.props.style} className={znui.react.classname("zr-checkboxs", this.props.className)}>
+			<ul style={this.props.style} className={znui.react.classname("zr-select-list", this.props.className)}>
 				{this.props.children}
 				<znui.react.DataView data={this.props.data} itemRender={this.__itemRender} />
-			</div>
+			</ul>
 		);
 	}
 });

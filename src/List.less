@@ -1,0 +1,47 @@
+.zr-select-list{
+    padding: 0px;
+    margin: 0px;
+    list-style: none;
+    background-color: #FFF;
+    color: #909090;
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.14), 0 2px 1px -1px rgba(0, 0, 0, 0.12);
+    border-radius: 3px;
+    min-width: 160px;
+    .list-item{
+        cursor: pointer;
+        line-height: 34px;
+        border-bottom: 1px solid #eeeeee;
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        padding: 5px;
+        &.actived{
+            color: #1a73e8 !important;
+            font-weight: bolder;
+        }
+        .icon{
+            padding: 5px;
+        }
+        .label{
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            word-break: keep-all;
+        }
+        .actions{
+            .action{
+                padding: 5px 3px;
+            }
+        }
+
+        &:hover{
+            color: cornflowerblue;
+            opacity: 0.6;
+            background: #eff3fa;
+        }
+
+        &:last-child{
+            border-bottom: 0px;
+        }
+    }
+}

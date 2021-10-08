@@ -6,5 +6,6 @@ module.exports = {
   Checkboxs: require('./Checkboxs'),
   Radio: require('./Radio'),
   Select: require('./Select'),
+  Menu: require('./Menu'),
   PopupSelect: require('./PopupSelect')
 };

@@ -4,6 +4,8 @@ var React = znui.React || require('react');
 
 var popup = require('znui-react-popup');
 
+var List = require('./List');
+
 module.exports = React.createClass({
   displayName: 'ZRPopupSelect',
   getDefaultProps: function getDefaultProps() {
@@ -70,16 +72,21 @@ module.exports = React.createClass({
       popupSelect: this
     }, this.props.context);
 
-    if (!_element) {
+    if (!_element && this.props.data) {
       _element = /*#__PURE__*/React.createElement("div", {
         className: "select-popover"
-      });
+      }, /*#__PURE__*/React.createElement(List, {
+        splitChar: this.props.splitChar,
+        textKey: this.props.textKey,
+        valueKey: this.props.valueKey,
+        dataType: this.props.dataType,
+        data: this.props.data
+      }));
     }
 
     return /*#__PURE__*/React.createElement("div", {
       style: {
-        width: this.props.width || _target.offsetWidth,
-        minWidth: this.props.minWidth
+        width: _target.offsetWidth
       },
       className: "select-popover"
     }, _element);
@@ -92,7 +99,7 @@ module.exports = React.createClass({
     }, this.props.context);
 
     if (!_element) {
-      _element = this.state.text || this.state.value || this.props.placeholder;
+      _element = this.state.text || this.props.placeholder;
     }
 
     return /*#__PURE__*/React.createElement("div", {
@@ -113,9 +120,58 @@ module.exports = React.createClass({
       d: "M31.3 192h257.3c17.8 0 26.7 21.5 14.1 34.1L174.1 354.8c-7.8 7.8-20.5 7.8-28.3 0L17.2 226.1C4.6 213.5 13.5 192 31.3 192z"
     })));
   },
+  __render: function __render() {
+    return /*#__PURE__*/React.createElement(popup.Dropdown, {
+      popover: {
+        render: function render() {
+          return /*#__PURE__*/React.createElement("ul", {
+            className: "zr-select-menu-dropdown-list"
+          }, [{
+            label: '账号信息',
+            icon: 'fa-user-circle'
+          }, {
+            label: '企业认证',
+            icon: 'fa-drivers-license-o'
+          }, {
+            label: '企业邀请',
+            icon: 'fa-deaf'
+          }, {
+            label: '基本设置',
+            icon: 'fa-sliders'
+          }].map(function (item, index) {
+            return /*#__PURE__*/React.createElement("li", {
+              className: "list-item",
+              key: index
+            }, /*#__PURE__*/React.createElement("i", {
+              className: "icon fa " + item.icon
+            }), /*#__PURE__*/React.createElement("span", {
+              className: "label"
+            }, item.label));
+          }));
+        },
+        onContainerEvent: function onContainerEvent(event, popover) {
+          return false;
+        }
+      }
+    }, /*#__PURE__*/React.createElement("div", {
+      className: "user-session"
+    }, /*#__PURE__*/React.createElement("figure", {
+      className: "avatar",
+      onClick: function onClick() {
+        return znui.app.session.jump('/main/my/info');
+      }
+    }, /*#__PURE__*/React.createElement("img", {
+      "data-zr-popup-tooltip": "\u67E5\u770B\u6211\u7684\u4E2A\u4EBA\u4FE1\u606F",
+      src: this.state.user.headimgurl || '../_com/images/logo-128.png'
+    })), /*#__PURE__*/React.createElement("span", {
+      className: "name"
+    }, this.state.user.Username || this.state.user.Name), /*#__PURE__*/React.createElement("i", {
+      className: "fa fa-angle-down"
+    })));
+  },
   render: function render() {
     return /*#__PURE__*/React.createElement(popup.Dropdown, {
-      className: znui.react.classname("zr-popup-select", this.props.className, this.props.disabled ? 'disabled' : ''),
+      className: znui.react.classname("zr-select-menu", this.props.className, this.props.disabled ? 'disabled' : ''),
       style: this.props.style,
       popover: {
         render: this.__popoverRender,

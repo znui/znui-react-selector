@@ -1,5 +1,6 @@
 var React = znui.React || require('react');
 var popup = require('znui-react-popup');
+var List = require('./List');
 
 module.exports = React.createClass({
 	displayName:'ZRPopupSelect',
@@ -51,6 +52,7 @@ module.exports = React.createClass({
 		}
 	},
 	__popoverRender: function (event, dropdown){
+
 		var _target = this.__resolveTarget(event.target);
 		if(this.props.disabled){
 			return null;
@@ -63,15 +65,19 @@ module.exports = React.createClass({
 			popupSelect: this
 		}, this.props.context);
 
-		if(!_element){
+		if(!_element && this.props.data){
 		 	_element = (
 				<div className="select-popover">
-					
+					<List splitChar={this.props.splitChar} 
+						textKey={this.props.textKey}
+						valueKey={this.props.valueKey}
+						dataType={this.props.dataType}
+						data={this.props.data} />
 				</div>
 			);
 		}
 
-		return <div style={{ width: this.props.width || _target.offsetWidth, minWidth: this.props.minWidth }} className="select-popover">{_element}</div>;
+		return <div style={{ width: _target.offsetWidth }} className="select-popover">{_element}</div>;
 	},
 	__valueRender: function (){
 		var _element = znui.react.createReactElement(this.props.textRender, {
@@ -80,7 +86,7 @@ module.exports = React.createClass({
 			popupSelect: this
 		}, this.props.context);
 		if(!_element){
-			_element = this.state.text || this.state.value || this.props.placeholder;
+			_element = this.state.text || this.props.placeholder;
 		}
 
 		return (
@@ -90,10 +96,49 @@ module.exports = React.createClass({
 			</div>
 		);
 	},
+	__render: function (){
+		return (
+			<popup.Dropdown 
+				popover={{
+					render: function (){
+						return (
+							<ul className="zr-select-menu-dropdown-list">
+								{
+									[
+										{ label: '账号信息', icon: 'fa-user-circle' },
+										{ label: '企业认证', icon: 'fa-drivers-license-o' },
+										{ label: '企业邀请', icon: 'fa-deaf' },
+										{ label: '基本设置', icon: 'fa-sliders' }
+									].map(function (item, index){
+										return (
+											<li className="list-item" key={index}>
+												<i className={"icon fa " + item.icon} />
+												<span className="label">{item.label}</span>
+											</li>
+										);
+									})
+								}
+							</ul>
+						);
+					},
+					onContainerEvent: function (event, popover){
+						return false;
+					}
+				}}>
+				<div className="user-session" >
+					<figure className="avatar" onClick={()=>znui.app.session.jump('/main/my/info')}>
+						<img data-zr-popup-tooltip="查看我的个人信息" src={this.state.user.headimgurl || '../_com/images/logo-128.png'} />
+					</figure>
+					<span className="name">{this.state.user.Username || this.state.user.Name}</span>
+					<i className="fa fa-angle-down" />
+				</div>
+			</popup.Dropdown>
+		);
+	},
 	render: function(){
 		return (
 			<popup.Dropdown 
-				className={znui.react.classname("zr-popup-select", this.props.className, (this.props.disabled?'disabled':''))}
+				className={znui.react.classname("zr-select-menu", this.props.className, (this.props.disabled?'disabled':''))}
 				style={this.props.style}
 				popover={{
 					render: this.__popoverRender,

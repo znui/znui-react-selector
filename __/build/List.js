@@ -1,13 +1,13 @@
 "use strict";
 
-function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
+var _React$createClass;
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 var React = znui.React || require('react');
 
-var UncontrolCheckbox = require('./UncontrolCheckbox');
-
-module.exports = React.createClass({
-  displayName: 'ZRCheckboxs',
+module.exports = React.createClass((_React$createClass = {
+  displayName: 'ZRSelectList',
   getDefaultProps: function getDefaultProps() {
     return {
       splitChar: ',',
@@ -94,44 +94,45 @@ module.exports = React.createClass({
     event.value = this.state.value;
     this.forceUpdate();
     this.props.onChange && this.props.onChange(event, this);
-  },
-  __itemRender: function __itemRender(item, index) {
-    var _this = this;
-
-    if (!zn.is(item, 'object')) {
-      var _temp = {
-        index: index
-      };
-      _temp[this.props.textKey] = _temp[this.props.valueKey] = item;
-      item = _temp;
-    } else {
-      item.index = index;
-    }
-
-    var _return = this.props.itemRender && this.props.itemRender(item, index);
-
-    if (!_return) {
-      _return = item[this.props.textKey];
-    }
-
-    return /*#__PURE__*/React.createElement(UncontrolCheckbox, _extends({
-      key: index,
-      disabled: this.props.disabled,
-      contentRender: this.props.contentRender
-    }, item, {
-      checked: this.__isChecked(item, index),
-      onClick: function onClick(event) {
-        return _this.__onItemClick(event, item);
-      }
-    }));
-  },
-  render: function render() {
-    return /*#__PURE__*/React.createElement("div", {
-      style: this.props.style,
-      className: znui.react.classname("zr-checkboxs", this.props.className)
-    }, this.props.children, /*#__PURE__*/React.createElement(znui.react.DataView, {
-      data: this.props.data,
-      itemRender: this.__itemRender
-    }));
   }
-});
+}, _defineProperty(_React$createClass, "__onItemClick", function __onItemClick() {}), _defineProperty(_React$createClass, "__itemRender", function __itemRender(item, index) {
+  var _this = this;
+
+  if (!zn.is(item, 'object')) {
+    var _temp = {
+      index: index
+    };
+    _temp[this.props.textKey] = _temp[this.props.valueKey] = item;
+    item = _temp;
+  } else {
+    item.index = index;
+  }
+
+  var _text = item[this.props.textKey];
+
+  var _return = this.props.itemRender && this.props.itemRender(item, index);
+
+  if (!_return) {
+    _return = /*#__PURE__*/React.createElement(React.Fragment, null, item.icon && /*#__PURE__*/React.createElement("i", {
+      className: "fa " + item.icon
+    }), /*#__PURE__*/React.createElement("span", {
+      className: "label"
+    }, _text));
+  }
+
+  return /*#__PURE__*/React.createElement("li", {
+    key: index,
+    className: "list-item",
+    onClick: function onClick(event) {
+      return _this.__onItemClick(event, item, index);
+    }
+  }, _return);
+}), _defineProperty(_React$createClass, "render", function render() {
+  return /*#__PURE__*/React.createElement("ul", {
+    style: this.props.style,
+    className: znui.react.classname("zr-select-list", this.props.className)
+  }, this.props.children, /*#__PURE__*/React.createElement(znui.react.DataView, {
+    data: this.props.data,
+    itemRender: this.__itemRender
+  }));
+}), _React$createClass));
