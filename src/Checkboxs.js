@@ -34,7 +34,7 @@ module.exports = React.createClass({
 		throw new Error('Data Type Of List Is Null.');
 	},
 	__isChecked: function (item, index){
-		var _value = item[this.props.valueKey];
+		var _value = (item[this.props.valueKey]).toString();
 		if(zn.is(this.state.value, 'array')){
 			if(this.state.value.indexOf(_value) != -1){
 				return true;
@@ -58,7 +58,7 @@ module.exports = React.createClass({
 	},
 	__clickDefault: function (event){
 		var _data = event.data,
-			_value = _data[this.props.valueKey];
+			_value = (_data[this.props.valueKey]).toString();
 		if(zn.is(this.state.value, 'array')) {
 			if(this.state.value.indexOf(_value) != -1){
 				this.state.value.splice(this.state.value.indexOf(_value), 1);

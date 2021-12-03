@@ -22,6 +22,9 @@ module.exports = React.createClass({
   },
   getInitialState: function getInitialState() {
     return {
+      color: null,
+      style: null,
+      className: null,
       value: this.parseValue(this.props.value)
     };
   },
@@ -59,16 +62,20 @@ module.exports = React.createClass({
     }
   },
   __itemRender: function __itemRender(item, index) {
-    var _value, _text;
+    var _value,
+        _text,
+        _item = item || {};
 
-    if (zn.is(item, 'object')) {
-      _value = this.__parseExp(item, this.props.valueKey);
-      _text = this.__parseExp(item, this.props.textKey);
+    if (zn.is(_item, 'object')) {
+      _value = this.__parseExp(_item, this.props.valueKey);
+      _text = this.__parseExp(_item, this.props.textKey);
     } else {
-      _value = _text = item;
+      _value = _text = _item;
     }
 
     return /*#__PURE__*/React.createElement("option", {
+      style: _item.style,
+      className: _item.className,
       disabled: item.disabled,
       selected: this.state.value == _value,
       key: _value,
@@ -87,6 +94,19 @@ module.exports = React.createClass({
     event.data = _data;
     event.value = _value;
     event.text = _text;
+
+    if (_data.color) {
+      this.state.color = _data.color;
+    }
+
+    if (_data.style) {
+      this.state.style = _data.style;
+    }
+
+    if (_data.className) {
+      this.state.className = _data.className;
+    }
+
     this.state.value = this.parseValue(_value);
     this.forceUpdate();
     this.props.onChange && this.props.onChange(event, this);
@@ -101,10 +121,24 @@ module.exports = React.createClass({
       value: value
     }, this);
   },
+  __resolveStyle: function __resolveStyle() {
+    var _style = {};
+
+    if (this.state.color) {
+      _style.color = this.state.color;
+      _style.borderColor = this.state.color;
+    }
+
+    if (this.state.style) {
+      _style = zn.extend(_style, this.state.style);
+    }
+
+    return _style;
+  },
   render: function render() {
     return /*#__PURE__*/React.createElement("select", {
-      className: znui.react.classname("zr-select", this.props.className),
-      style: this.props.style,
+      className: znui.react.classname("zr-select", this.props.className, this.state.className),
+      style: znui.react.style({}, this.props.style, this.__resolveStyle()),
       name: this.props.name,
       value: this.state.value,
       multiple: this.props.multiple,
