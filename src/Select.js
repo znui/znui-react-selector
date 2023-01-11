@@ -19,12 +19,21 @@ module.exports = React.createClass({
 		//ReactDOM.findDOMNode(this).value = this.state.value;
 	},
 	getInitialState: function (){
+		var _value = this.parseValue(this.props.value), _color = null;
+		if(this.props.data && zn.is(this.props.data, 'array')) {
+			for(var item of this.props.data) {
+				if(item.value == _value) {
+					_color = item.color;
+					continue;
+				}
+			}
+		}
 		return {
-			color: null,
+			color: this.props.color || _color,
 			style: null,
 			className: null,
-			value: this.parseValue(this.props.value)
-		}
+			value: _value
+		};
 	},
 	parseValue: function (value){
 		if(this.props.multiple){
@@ -66,13 +75,13 @@ module.exports = React.createClass({
 			_value = _text = _item;
 		}
 
-		return <option style={_item.style} className={_item.className} disabled={item.disabled} selected={this.state.value==_value} key={_value} value={_value} data-text={_text} data-value={_value}>{_text}</option>;
+		return <option style={_item.style} className={_item.className} disabled={item.disabled} selected={this.state.value==_value} key={_value} value={_value} data-text={_text} data-value={_value} data-color={_item.color || ''}>{_text}</option>;
 	},
 	__onSelectChange: function (event){
 		var _target = event.target,
 			_data = event.target.childNodes[_target.selectedIndex].dataset,
-			_value = this.__parseExp(_data, this.props.valueKey),
-			_text = this.__parseExp(_data, this.props.textKey);
+			_value = this.__parseExp(_data, this.props.valueKey) || this.__parseExp(_data, 'value'),
+			_text = this.__parseExp(_data, this.props.textKey) || this.__parseExp(_data, 'text');
 
 		event.selectedIndex = (+_target.selectedIndex - 1);
 		event.data = _data;

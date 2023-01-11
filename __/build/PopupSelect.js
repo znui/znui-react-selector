@@ -97,8 +97,8 @@ module.exports = React.createClass({
 
     return /*#__PURE__*/React.createElement("div", {
       className: "select-text"
-    }, /*#__PURE__*/React.createElement("div", {
-      className: "text"
+    }, this.props.showText !== false && /*#__PURE__*/React.createElement("div", {
+      className: "text znui-react-long-text"
     }, _element), /*#__PURE__*/React.createElement("svg", {
       "aria-hidden": "true",
       focusable: "false",

@@ -1,5 +1,11 @@
 "use strict";
 
+function _createForOfIteratorHelper(o, allowArrayLike) { var it; if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = o[Symbol.iterator](); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
 var React = znui.React || require('react');
 
 var ReactDOM = znui.ReactDOM || require('react-dom');
@@ -21,11 +27,34 @@ module.exports = React.createClass({
   componentDidMount: function componentDidMount() {//ReactDOM.findDOMNode(this).value = this.state.value;
   },
   getInitialState: function getInitialState() {
+    var _value = this.parseValue(this.props.value),
+        _color = null;
+
+    if (this.props.data && zn.is(this.props.data, 'array')) {
+      var _iterator = _createForOfIteratorHelper(this.props.data),
+          _step;
+
+      try {
+        for (_iterator.s(); !(_step = _iterator.n()).done;) {
+          var item = _step.value;
+
+          if (item.value == _value) {
+            _color = item.color;
+            continue;
+          }
+        }
+      } catch (err) {
+        _iterator.e(err);
+      } finally {
+        _iterator.f();
+      }
+    }
+
     return {
-      color: null,
+      color: this.props.color || _color,
       style: null,
       className: null,
-      value: this.parseValue(this.props.value)
+      value: _value
     };
   },
   parseValue: function parseValue(value) {
@@ -81,14 +110,15 @@ module.exports = React.createClass({
       key: _value,
       value: _value,
       "data-text": _text,
-      "data-value": _value
+      "data-value": _value,
+      "data-color": _item.color || ''
     }, _text);
   },
   __onSelectChange: function __onSelectChange(event) {
     var _target = event.target,
         _data = event.target.childNodes[_target.selectedIndex].dataset,
-        _value = this.__parseExp(_data, this.props.valueKey),
-        _text = this.__parseExp(_data, this.props.textKey);
+        _value = this.__parseExp(_data, this.props.valueKey) || this.__parseExp(_data, 'value'),
+        _text = this.__parseExp(_data, this.props.textKey) || this.__parseExp(_data, 'text');
 
     event.selectedIndex = +_target.selectedIndex - 1;
     event.data = _data;
