@@ -139,9 +139,10 @@
   background-color: transparent;
 }
 .zr-select:disabled {
-  color: #b1b0af;
+  color: #6d6b6a !important;
+  border-color: #6d6b6a !important;
   cursor: not-allowed;
-  opacity: 0.6;
+  opacity: 0.8;
 }
 .zr-select-menu {
   width: 100%;
@@ -234,6 +235,9 @@
 .zr-popup-select.no-border .select-text {
   border: none !important;
 }
+.zr-popup-select.no-border .select-text {
+  border: none !important;
+}
 .zr-popup-select .select-text {
   border: 1px solid #d8d8d8;
   border-radius: 3px;
@@ -244,6 +248,7 @@
   justify-content: space-between;
   align-items: center;
   cursor: pointer;
+  word-break: break-all;
 }
 .zr-popup-select .select-text .text {
   flex: 1;

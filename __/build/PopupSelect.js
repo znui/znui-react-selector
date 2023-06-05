@@ -13,6 +13,7 @@ module.exports = React.createClass({
       value: '',
       valueKey: 'value',
       disabled: false,
+      longText: true,
       placeholder: "请选择"
     };
   },
@@ -98,7 +99,7 @@ module.exports = React.createClass({
     return /*#__PURE__*/React.createElement("div", {
       className: "select-text"
     }, this.props.showText !== false && /*#__PURE__*/React.createElement("div", {
-      className: "text znui-react-long-text"
+      className: "text " + (this.props.longText ? 'znui-react-long-text' : '')
     }, _element), /*#__PURE__*/React.createElement("svg", {
       "aria-hidden": "true",
       focusable: "false",
