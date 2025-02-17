@@ -1,6 +1,6 @@
 {
   "name": "znui-react-selector",
-  "version": "2.0.12",
+  "version": "2.0.13",
   "description": "Web selector component.",
   "main": "index.js",
   "scripts": {

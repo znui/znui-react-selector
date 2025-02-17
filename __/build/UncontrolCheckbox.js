@@ -1,7 +1,6 @@
 "use strict";
 
 var React = znui.React || require('react');
-
 module.exports = React.createClass({
   displayName: 'ZRUncontrolCheckbox',
   getDefaultProps: function getDefaultProps() {
@@ -18,24 +17,20 @@ module.exports = React.createClass({
     if (this.props.disabled) {
       return false;
     }
-
     event.data = this.props;
     event.sender = this;
     this.props.onClick && this.props.onClick(event, this);
   },
   __renderContent: function __renderContent() {
     var _return = this.props.contentRender && this.props.contentRender(this);
-
     if (_return === undefined || _return === null) {
       _return = this.props.text || this.props.label || '';
     }
-
     if (_return) {
       return /*#__PURE__*/React.createElement("div", {
         className: "content"
       }, _return);
     }
-
     return null;
   },
   render: function render() {

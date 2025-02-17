@@ -17,7 +17,8 @@ module.exports = React.createClass({
 	getInitialState: function (){
 		return {
 			text: this.props.text,
-			value: this.props.value
+			value: this.props.value,
+			dropdown: null
 		}
 	},
 	getValue: function () {
@@ -71,22 +72,30 @@ module.exports = React.createClass({
 				</div>
 			);
 		}
-
-		return <div style={{ width: this.props.width || _target.offsetWidth, minWidth: this.props.minWidth }} className="select-popover">{_element}</div>;
+		this.state.dropdown = dropdown;
+		return (
+			<div style={{ width: this.props.width || _target.offsetWidth, minWidth: this.props.minWidth }} className="select-popover">
+				{_element}
+			</div>
+		);
 	},
 	__valueRender: function (){
 		var _element = znui.react.createReactElement(this.props.textRender, {
 			value: this.state.value,
 			text: this.state.text,
+			dropdown: this.state.dropdown,
 			popupSelect: this
 		}, this.props.context);
 		if(!_element){
-			_element = this.state.text || this.state.value || this.props.placeholder;
+			var _text = this.state.text || this.state.value || this.props.placeholder;
+			_element = (
+				<div className={"text " + (this.props.longText ? 'znui-react-long-text' : '')}>{_text}</div>
+			);
 		}
 
 		return (
-			<div className="select-text">
-				{this.props.showText !== false && <div className={"text " + (this.props.longText ? 'znui-react-long-text' : '')}>{_element}</div>}
+			<div className="select-text" onClick={(e)=>e.stopPropagation()}>
+				{ this.props.showText !== false && _element }
 				<svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="caret-down" className="svg-inline--fa fa-caret-down fa-w-10 " role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path fill="currentColor" d="M31.3 192h257.3c17.8 0 26.7 21.5 14.1 34.1L174.1 354.8c-7.8 7.8-20.5 7.8-28.3 0L17.2 226.1C4.6 213.5 13.5 192 31.3 192z"></path></svg>
 			</div>
 		);
@@ -96,6 +105,7 @@ module.exports = React.createClass({
 			<popup.Dropdown 
 				className={znui.react.classname("zr-popup-select", this.props.className, (this.props.disabled?'disabled':''))}
 				style={this.props.style}
+				stopPropagation={this.props.stopPropagation}
 				popover={{
 					render: this.__popoverRender,
 					onContainerEvent: function (event, popover){

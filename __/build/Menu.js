@@ -1,11 +1,8 @@
 "use strict";
 
 var React = znui.React || require('react');
-
 var popup = require('znui-react-popup');
-
 var List = require('./List');
-
 module.exports = React.createClass({
   displayName: 'ZRPopupSelect',
   getDefaultProps: function getDefaultProps() {
@@ -59,11 +56,9 @@ module.exports = React.createClass({
   },
   __popoverRender: function __popoverRender(event, dropdown) {
     var _target = this.__resolveTarget(event.target);
-
     if (this.props.disabled) {
       return null;
     }
-
     var _element = znui.react.createReactElement(this.props.popupRender, {
       value: this.state.value,
       text: this.state.text,
@@ -71,7 +66,6 @@ module.exports = React.createClass({
       dropdown: dropdown,
       popupSelect: this
     }, this.props.context);
-
     if (!_element && this.props.data) {
       _element = /*#__PURE__*/React.createElement("div", {
         className: "select-popover"
@@ -83,7 +77,6 @@ module.exports = React.createClass({
         data: this.props.data
       }));
     }
-
     return /*#__PURE__*/React.createElement("div", {
       style: {
         width: _target.offsetWidth
@@ -97,11 +90,9 @@ module.exports = React.createClass({
       text: this.state.text,
       popupSelect: this
     }, this.props.context);
-
     if (!_element) {
       _element = this.state.text || this.props.placeholder;
     }
-
     return /*#__PURE__*/React.createElement("div", {
       className: "select-text"
     }, /*#__PURE__*/React.createElement("div", {

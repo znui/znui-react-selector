@@ -1,9 +1,7 @@
 "use strict";
 
 var React = znui.React || require('react');
-
 var popup = require('znui-react-popup');
-
 module.exports = React.createClass({
   displayName: 'ZRPopupSelect',
   getDefaultProps: function getDefaultProps() {
@@ -20,7 +18,8 @@ module.exports = React.createClass({
   getInitialState: function getInitialState() {
     return {
       text: this.props.text,
-      value: this.props.value
+      value: this.props.value,
+      dropdown: null
     };
   },
   getValue: function getValue() {
@@ -58,11 +57,9 @@ module.exports = React.createClass({
   },
   __popoverRender: function __popoverRender(event, dropdown) {
     var _target = this.__resolveTarget(event.target);
-
     if (this.props.disabled) {
       return null;
     }
-
     var _element = znui.react.createReactElement(this.props.popupRender, {
       value: this.state.value,
       text: this.state.text,
@@ -70,13 +67,12 @@ module.exports = React.createClass({
       dropdown: dropdown,
       popupSelect: this
     }, this.props.context);
-
     if (!_element) {
       _element = /*#__PURE__*/React.createElement("div", {
         className: "select-popover"
       });
     }
-
+    this.state.dropdown = dropdown;
     return /*#__PURE__*/React.createElement("div", {
       style: {
         width: this.props.width || _target.offsetWidth,
@@ -89,18 +85,21 @@ module.exports = React.createClass({
     var _element = znui.react.createReactElement(this.props.textRender, {
       value: this.state.value,
       text: this.state.text,
+      dropdown: this.state.dropdown,
       popupSelect: this
     }, this.props.context);
-
     if (!_element) {
-      _element = this.state.text || this.state.value || this.props.placeholder;
+      var _text = this.state.text || this.state.value || this.props.placeholder;
+      _element = /*#__PURE__*/React.createElement("div", {
+        className: "text " + (this.props.longText ? 'znui-react-long-text' : '')
+      }, _text);
     }
-
     return /*#__PURE__*/React.createElement("div", {
-      className: "select-text"
-    }, this.props.showText !== false && /*#__PURE__*/React.createElement("div", {
-      className: "text " + (this.props.longText ? 'znui-react-long-text' : '')
-    }, _element), /*#__PURE__*/React.createElement("svg", {
+      className: "select-text",
+      onClick: function onClick(e) {
+        return e.stopPropagation();
+      }
+    }, this.props.showText !== false && _element, /*#__PURE__*/React.createElement("svg", {
       "aria-hidden": "true",
       focusable: "false",
       "data-prefix": "fas",
@@ -118,6 +117,7 @@ module.exports = React.createClass({
     return /*#__PURE__*/React.createElement(popup.Dropdown, {
       className: znui.react.classname("zr-popup-select", this.props.className, this.props.disabled ? 'disabled' : ''),
       style: this.props.style,
+      stopPropagation: this.props.stopPropagation,
       popover: {
         render: this.__popoverRender,
         onContainerEvent: function onContainerEvent(event, popover) {

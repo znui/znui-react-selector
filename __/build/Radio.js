@@ -1,9 +1,7 @@
 "use strict";
 
-function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
-
+function _extends() { return _extends = Object.assign ? Object.assign.bind() : function (n) { for (var e = 1; e < arguments.length; e++) { var t = arguments[e]; for (var r in t) ({}).hasOwnProperty.call(t, r) && (n[r] = t[r]); } return n; }, _extends.apply(null, arguments); }
 var React = znui.React || require('react');
-
 var RadioItem = React.createClass({
   displayName: 'ZRRadioItem',
   getDefaultProps: function getDefaultProps() {
@@ -18,24 +16,20 @@ var RadioItem = React.createClass({
     if (this.props.disabled) {
       return false;
     }
-
     event.data = this.props;
     event.sender = this;
     this.props.onClick && this.props.onClick(event, this);
   },
   __renderContent: function __renderContent() {
     var _return = this.props.contentRender && this.props.contentRender(this);
-
     if (_return !== null) {
       _return = this.props.text || this.props.label || '';
     }
-
     if (_return) {
       return /*#__PURE__*/React.createElement("div", {
         className: "content"
       }, _return);
     }
-
     return null;
   },
   render: function render() {
@@ -93,25 +87,21 @@ var Radio = React.createClass({
   },
   __initValue: function __initValue() {
     var _value = null;
-
     if (this.props.value !== null) {
       _value = this.props.value;
     } else {
       _value = '';
     }
-
     return this.parseValue(_value);
   },
   parseValue: function parseValue(value) {
     if (window[this.props.dataType]) {
       return new window[this.props.dataType](value).valueOf();
     }
-
     throw new Error('Data Type Of List Is Null.');
   },
   __isChecked: function __isChecked(item, index) {
     var _value = this.parseValue(item[this.props.valueKey]);
-
     if (_value === this.state.value) {
       return true;
     } else {
@@ -122,7 +112,6 @@ var Radio = React.createClass({
     if (this.props.disabled || event.data.disabled) {
       return false;
     }
-
     this.state.value = event.value = this.parseValue(item[this.props.valueKey]);
     this.forceUpdate();
     this.props.onChange && this.props.onChange(event, this);
@@ -130,7 +119,6 @@ var Radio = React.createClass({
   },
   __itemRender: function __itemRender(item, index) {
     var _this = this;
-
     if (!zn.is(item, 'object')) {
       var _temp = {
         index: index
@@ -140,13 +128,10 @@ var Radio = React.createClass({
     } else {
       item.index = index;
     }
-
     var _return = this.props.itemRender && this.props.itemRender(item, index);
-
     if (!_return) {
       _return = item[this.props.textKey];
     }
-
     return /*#__PURE__*/React.createElement(RadioItem, _extends({
       key: index,
       disabled: this.props.disabled

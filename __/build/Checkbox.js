@@ -1,7 +1,6 @@
 "use strict";
 
 var React = znui.React || require('react');
-
 module.exports = React.createClass({
   displayName: 'ZRCheckbox',
   getDefaultProps: function getDefaultProps() {
@@ -15,11 +14,9 @@ module.exports = React.createClass({
   },
   getInitialState: function getInitialState() {
     var _value = this.props.checked;
-
     if (this.props.value != null) {
       _value = this.props.value;
     }
-
     return {
       checked: _value
     };
@@ -28,7 +25,6 @@ module.exports = React.createClass({
     if (this.props.disabled) {
       return false;
     }
-
     this.state.checked = event.value = event.checked = !this.state.checked;
     this.forceUpdate();
     this.props.onClick && this.props.onClick(event, this);
@@ -49,17 +45,14 @@ module.exports = React.createClass({
   },
   __renderContent: function __renderContent() {
     var _return = this.props.contentRender && this.props.contentRender(this);
-
     if (_return !== null) {
       _return = this.props.text || this.props.label || '';
     }
-
     if (_return) {
       return /*#__PURE__*/React.createElement("div", {
         className: "content"
       }, _return);
     }
-
     return null;
   },
   render: function render() {

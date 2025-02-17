@@ -1,11 +1,8 @@
 "use strict";
 
-function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
-
+function _extends() { return _extends = Object.assign ? Object.assign.bind() : function (n) { for (var e = 1; e < arguments.length; e++) { var t = arguments[e]; for (var r in t) ({}).hasOwnProperty.call(t, r) && (n[r] = t[r]); } return n; }, _extends.apply(null, arguments); }
 var React = znui.React || require('react');
-
 var UncontrolCheckbox = require('./UncontrolCheckbox');
-
 module.exports = React.createClass({
   displayName: 'ZRCheckboxs',
   getDefaultProps: function getDefaultProps() {
@@ -23,25 +20,21 @@ module.exports = React.createClass({
   },
   __initValue: function __initValue() {
     var _value = null;
-
     if (this.props.value != null) {
       _value = this.props.value;
     } else {
       _value = [];
     }
-
     return _value;
   },
   parseValue: function parseValue(value) {
     if (window[this.props.dataType]) {
       return new window[this.props.dataType](value).valueOf();
     }
-
     throw new Error('Data Type Of List Is Null.');
   },
   __isChecked: function __isChecked(item, index) {
     var _value = item[this.props.valueKey].toString();
-
     if (zn.is(this.state.value, 'array')) {
       if (this.state.value.indexOf(_value) != -1) {
         return true;
@@ -52,7 +45,6 @@ module.exports = React.createClass({
       var _avalue = this.state.value.split(this.props.splitChar).filter(function (value) {
         return !!value;
       });
-
       if (_avalue.indexOf(_value) != -1) {
         return true;
       } else {
@@ -62,15 +54,13 @@ module.exports = React.createClass({
   },
   __onItemClick: function __onItemClick(event, checkbox) {
     var _return = this.props.onItemClick && this.props.onItemClick(event, this);
-
     if (_return == null) {
       this.__clickDefault(event);
     }
   },
   __clickDefault: function __clickDefault(event) {
     var _data = event.data,
-        _value = _data[this.props.valueKey].toString();
-
+      _value = _data[this.props.valueKey].toString();
     if (zn.is(this.state.value, 'array')) {
       if (this.state.value.indexOf(_value) != -1) {
         this.state.value.splice(this.state.value.indexOf(_value), 1);
@@ -81,23 +71,19 @@ module.exports = React.createClass({
       var _avalue = this.state.value.split(this.props.splitChar).filter(function (value) {
         return !!value;
       });
-
       if (_avalue.indexOf(_value) != -1) {
         _avalue.splice(_avalue.indexOf(_value), 1);
       } else {
         _avalue.push(_value);
       }
-
       this.state.value = _avalue.join(this.props.splitChar);
     }
-
     event.value = this.state.value;
     this.forceUpdate();
     this.props.onChange && this.props.onChange(event, this);
   },
   __itemRender: function __itemRender(item, index) {
     var _this = this;
-
     if (!zn.is(item, 'object')) {
       var _temp = {
         index: index
@@ -107,13 +93,10 @@ module.exports = React.createClass({
     } else {
       item.index = index;
     }
-
     var _return = this.props.itemRender && this.props.itemRender(item, index);
-
     if (!_return) {
       _return = item[this.props.textKey];
     }
-
     return /*#__PURE__*/React.createElement(UncontrolCheckbox, _extends({
       key: index,
       disabled: this.props.disabled,
